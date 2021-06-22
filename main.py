@@ -32,13 +32,13 @@ for f in found_files:
         module_name = f[:-3]
         #We will execute those modules later
         spec = importlib.util.find_spec(module_name)
-        modules[module_name] = importlib.util.module_from_spec(spec)
+        modules[module_name] = (spec, importlib.util.module_from_spec(spec))
         
 sys.path = prevpath #And get everything to normal so each library can use it's own dependencies
 
 #Each module has to be executed so it will work correctly
 for m in modules:
-    spec.loader.exec_module(modules[m]) 
+    modules[m][0].loader.exec_module(modules[m][1]) 
 
 ### Here we go ###
 
