@@ -5,7 +5,7 @@
 
 import json
 
-global _vars, _permavars
+global _vars, _permavars, _updatepv
 _vars = {} #Global variables
 _permavars = {} #Permanent variables
 _updatepv = {} #Recently changed permanent variables
@@ -52,14 +52,16 @@ class SharedVariableHandler(object):
 
 # Permanent variables however act more like a database with specific ids you can't really access from other places.
 # Kinda hard to understand, but yeah
-def updateAllPermanentVariables(): #Function to save everything
+async def updateAllPermanentVariables(*args): #Function to save everything
+    global _updatepv
     for k in list(_updatepv.keys()): 
         if _updatepv[k]:
             try:
                 with open(k + ".json", "w", encoding = "utf-8") as f:
                     f.write(json.dumps(_permavars[k]))
             except:
-                raise
+                raise #Maybe do something later with it
+    _updatepv = {}
 
 
 class PermanentVariableHandler(object): #I can't inherit it???

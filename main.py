@@ -42,7 +42,8 @@ for m in modules:
 
 ### Here we go ###
 
-#print(modules)
+um = _SLIP.SharedVariableHandler("_usedmodules")
+um[um.len()] = (_SLIP.updateAllPermanentVariables, 30, False) #Autoupdate permanent variables
 
 class Client(discord.Client): #Main client
     _firstlaunch = True
@@ -58,11 +59,7 @@ class Client(discord.Client): #Main client
                 
                 if um[m][2]: #If should add to the clients function
                     isimplemented = fname in self._implementedfunctions
-                    # for f in self.__dict__: #Check if similar function already
-                    #     if f == fname:
-                    #         isimplemented = True
-                    #         break
-                    
+
                     if not isimplemented:
                         def a(funcname, slf): #slf is self, just kinda truncated. I have no idea why this stuff is broken
                             async def b(*args, **kwargs):
