@@ -7,14 +7,17 @@
 
 #Imports
 #Basic stuff, ya know
-import sys, os, asyncio
+import sys
+import os
+import asyncio
 import importlib.util
 
 #To make importing easier for me
 from functools import partial
 
 #Shared variables and config
-import _SLIP, config
+import _SLIP
+import config
 
 #Thing for an actual wrapper
 import discord
@@ -23,7 +26,7 @@ import discord
 modules = {}
 found_files = os.listdir("modules/")
 
-#Here path must be overriden
+#Here path must be overridden
 prevpath = sys.path
 sys.path = [prevpath[0] + "\\modules"] #Lock for only one directory
 
